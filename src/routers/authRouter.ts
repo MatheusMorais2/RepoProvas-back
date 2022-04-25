@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { schemaValidationMiddleware } from "../middlewares/schemaValidationMiddleware.js";
-import { signup, signin } from "../controllers/authController.js";
+import { signup, signin, logout } from "../controllers/authController.js";
 import signupSchema from "../schemas/signupSchema.js";
 import signinSchema from "../schemas/signinSchema.js";
 
@@ -16,5 +16,7 @@ authRouter.post(
   schemaValidationMiddleware(signinSchema),
   signin
 );
+
+authRouter.delete("/auth/logout", logout);
 
 export default authRouter;

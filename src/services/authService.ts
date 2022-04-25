@@ -45,7 +45,16 @@ async function signin(userData: Omit<CreateUser, "confirmPassword">) {
   return token;
 }
 
+async function deleteSession(sessionId: number) {
+  const session = await authRepository.findSession(sessionId);
+  console.log("session: ", session);
+  if (!session) throw notFoundError("session");
+
+  await authRepository.deleteSession(sessionId);
+}
+
 export default {
   createUser,
   signin,
+  deleteSession,
 };

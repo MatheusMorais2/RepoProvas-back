@@ -16,6 +16,16 @@ async function findUserByEmail(email: string) {
   return user;
 }
 
+async function findUserById(id) {
+  const user = await prisma.sessions.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  return user;
+}
+
 async function createUser(email: string, password: string) {
   await prisma.users.create({
     data: {
@@ -34,8 +44,29 @@ async function createSessions(userId: number) {
   return id;
 }
 
+async function findSession(sessionId: number) {
+  const session = await prisma.sessions.findFirst({
+    where: {
+      id: sessionId,
+    },
+  });
+  return session;
+}
+
+async function deleteSession(sessionId: number) {
+  const search = await prisma.sessions.delete({
+    where: {
+      id: sessionId,
+    },
+  });
+  console.log("search: ", search);
+}
+
 export default {
-  findUserByEmail,
+  findUserByEmail: findUserByEmail,
   createUser,
   createSessions,
+  findUserById,
+  findSession,
+  deleteSession,
 };
